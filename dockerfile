@@ -1,8 +1,8 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
+RUN mvn clean package -DskipTests
 
-RUN chmod +x mvnw
-RUN ./mvnw clean install -DskipTests
+FROM eclipse-temurin:17-jdk-jammy
+COPY --from=build /target/*.jar app.jar
 EXPOSE 8080
-
-ENTRYPOINT ["sh", "-c", "java -jar target/*.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
