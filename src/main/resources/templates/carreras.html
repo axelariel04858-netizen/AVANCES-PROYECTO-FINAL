@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MANTENIMIENTO | CARRERAS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/plugins/nprogress/nprogress.css" rel="stylesheet">
+  <link href="/plugins/iCheck/skins/flat/green.css" rel="stylesheet">
+  <link href="/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/plugins/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/plugins/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/plugins/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/plugins/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+  <link href="/css/custom.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    .left_col { background: #6A1C32 !important; }
+    .nav_title { background: #4A1322 !important; }
+    .sidebar-footer { background: #4A1322 !important; }
+    .sidebar-footer a { background: #4A1322 !important; color: #E7E7E7 !important; }
+    .sidebar-footer a:hover { background: #6A1C32 !important; }
+    .nav.side-menu > li > a { color: #E7E7E7 !important; }
+    .nav.side-menu > li > a:hover { background: #4A1322 !important; }
+    .nav.side-menu > li.current-page > a { background: #4A1322 !important; }
+    .btn-dark { background-color: #6A1C32 !important; border-color: #4A1322 !important; color: white !important;}
+    .btn-dark:hover { background-color: #4A1322 !important; color: white !important;}
+    .page-title .title_left h1, .x_title h2 { color: #6A1C32 !important; font-weight: bold; }
+  </style>
+</head>
+
+<body class="nav-md" style="background-color: #6A1C32;">
+<div class="container body" style="background-color: #6A1C32;">
+  <div class="main_container">
+    <div class="col-md-3 left_col" style="background-color: #6A1C32;">
+      <div class="left_col scroll-view" style="background-color: #6A1C32;">
+        <div class="navbar nav_title" style="border: 0; background-color: #4A1322;">
+          <a href="carreras" class="site_title" style="display: flex; align-items: center; padding-left: 15px;">
+            <img src="/images/admin.png" alt="Admin" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #fff;">
+            <span style="font-weight: 600;">SiReSe IPN</span>
+          </a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
+            <ul class="nav side-menu">
+              <li><a href="carreras"><i class="fa fa-cog" ></i>MANTENIMIENTO DE CARRERAS</a></li>
+            </ul>
+          </div>
+          <div class="menu_section">
+            <ul class="nav side-menu">
+              <li><a href="solicitante"><i class="fa fa-group" ></i>SOLICITUDES</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sidebar-footer hidden-small" style="background-color: #4A1322;">
+          <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="right_col" role="main" style="background-color: #F7F7F7; min-height: 100vh;">
+      <div class="">
+        <div class="page-title">
+          <div class="title_left">
+            <h1>MANTENIMIENTO DE CARRERAS</h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>LISTADO DE CARRERAS</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                  <li><button type="button" class="fa btn btn-dark fa-magic" data-toggle="modal" data-target="#modal-ag">   AGREGAR CARRERA</button></li>
+                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <table id="datatable-buttons" class="table table-striped table-bordered">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>SEMESTRES</th>
+                    <th>ACCIONES</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modal-ag" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                  <h2 class="modal-title" id="myModalLabel">AGREGAR CARRERA</h2>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="nombrecarrera">NOMBRE DE LA CARRERA</label>
+                    <input type="text" class="form-control mb-4" id="nombrecarrera" placeholder="INGRESA EL NOMBRE DE LA CARRERA">
+                  </div>
+                  <div class="form-group">
+                    <label for="semestrescarrera">SEMESTRES DE LA CARRERA</label>
+                    <input type="text" class="form-control" id="semestrescarrera" placeholder="Ej. 8" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                  </div>
+                  <div class="form-group">
+                    <label for="observacionescarrera">OBSERVACIONES DE LA CARRERA</label>
+                    <textarea class="form-control" id="observacionescarrera" rows="3" required></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="fa btn btn-default fa-close" data-dismiss="modal">    CANCELAR</button>
+                  <button type="button" class="fa btn btn-dark fa-save" onclick="guardar();">    AGREGAR CARRERA</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modal-ac" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                  <h2 class="modal-title" id="myModalLabel1">ACTUALIZAR CARRERA</h2>
+                </div>
+                <div class="modal-body">
+                  <input type="hidden" id="id-ac">
+                  <div class="form-group">
+                    <label for="nombrecarrera-ac">NOMBRE DE LA CARRERA</label>
+                    <input type="text" class="form-control" id="nombrecarrera-ac">
+                  </div>
+                  <div class="form-group">
+                    <label for="semestrescarrera-ac">SEMESTRES DE LA CARRERA</label>
+                    <input type="text" class="form-control" id="semestrescarrera-ac" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                  </div>
+                  <div class="form-group">
+                    <label for="observacionescarrera-ac">OBSERVACIONES DE LA CARRERA</label>
+                    <textarea class="form-control" id="observacionescarrera-ac" rows="3" ></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="fa btn btn-default fa-close" data-dismiss="modal">    CANCELAR</button>
+                  <button type="button" class="fa btn btn-dark fa-save" onclick="actualizar();">    ACTUALIZAR CARRERA</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modal-el"  tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                  <h2 class="modal-title" id="myModalLabel2">ELIMINAR CARRERA</h2>
+                </div>
+                <div class="modal-body">
+                  <h5>¿ESTÁS SEGURO DE QUE QUIERES ELIMINAR ESTA CARRERA DE FORMA PERMANENTE?</h5>
+                  <input type="hidden" id="id-el">
+                  <div class="form-group">
+                    <label for="nombrecarrera-el">NOMBRE DE LA CARRERA</label>
+                    <input type="text" class="form-control mb-4" id="nombrecarrera-el" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="semestrescarrera-el">SEMESTRES DE LA CARRERA</label>
+                    <input type="text" class="form-control" id="semestrescarrera-el" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="observacionescarrera-el">OBSERVACIONES DE LA CARRERA</label>
+                    <textarea class="form-control" id="observacionescarrera-el" rows="3" readonly></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="fa btn btn-default fa-close" data-dismiss="modal">    CANCELAR</button>
+                  <button type="button" class="fa btn btn-dark fa-save" onclick="eliminar();">    ELIMINAR CARRERA</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/plugins/jquery/dist/jquery.min.js"></script>
+<script src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/plugins/fastclick/lib/fastclick.js"></script>
+<script src="/plugins/nprogress/nprogress.js"></script>
+<script src="/plugins/iCheck/icheck.min.js"></script>
+<script src="/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/plugins/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/plugins/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="/plugins/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="/plugins/jszip/dist/jszip.min.js"></script>
+<script src="/plugins/pdfmake/build/pdfmake.min.js"></script>
+<script src="/plugins/pdfmake/build/vfs_fonts.js"></script>
+
+<script src="/js/custom.min.js"></script>
+<script src="/js/propios/carreras.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if (typeof listar === "function") {
+      listar();
+    }
+  });
+</script>
+
+</body>
+</html>

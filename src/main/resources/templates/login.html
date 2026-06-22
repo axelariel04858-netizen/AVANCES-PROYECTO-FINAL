@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>INICIO SESION | ADMINS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background: #6A1C32;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+    }
+    .login-card {
+      background: #ffffff;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      position: relative;
+    }
+    .login-card::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.1);
+      z-index: -1;
+    }
+    .logo-ipn {
+      width: 90px;
+      margin-bottom: 25px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+    .form-control {
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      background: #fcfcfc;
+    }
+    .form-control:focus {
+      border-color: #6A1C32;
+      box-shadow: 0 0 8px rgba(106, 28, 50, 0.2);
+      outline: none;
+    }
+    .btn-login {
+      background: #6A1C32;
+      color: #fff;
+      border-radius: 10px;
+      padding: 14px;
+      width: 100%;
+      font-weight: 600;
+      border: none;
+      transition: 0.3s;
+    }
+    .btn-login:hover {
+      background: #4A1322;
+    }
+  </style>
+</head>
+
+<body class="login">
+<div class="login-card">
+  <img src="/images/Escudo_ipn.png" class="logo-ipn" onerror="this.style.display='none'">
+  <form>
+    <h1>Iniciar Sesión</h1>
+    <input type="text" class="form-control" id="u" placeholder="Usuario" required>
+    <input type="password" class="form-control" id="p" placeholder="Contraseña" required>
+    <button type="button" class="btn-login" onclick="hacerLogin();">Ingresar</button>
+  </form>
+</div>
+
+<script>
+  console.log("Script cargado");
+  function hacerLogin() {
+    let u = document.getElementById("u").value, p = document.getElementById("p").value;
+    console.log("Enviando:", `username=${u}&password=${p}`);
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `username=${u}&password=${p}`
+    }).then(res => res.json()).then(data => {
+      if(data.success) window.location.href = "/carreras";
+      else Swal.fire({ icon: 'error', text: 'Credenciales incorrectas', confirmButtonColor: '#6A1C32' });
+    })
+            .catch(err => {
+              console.error("Error en la conexión:", err);
+              Swal.fire({ icon: 'error', text: 'No se pudo conectar al servidor' });
+            });
+  }
+</script>
+
+</body>
+</html>
